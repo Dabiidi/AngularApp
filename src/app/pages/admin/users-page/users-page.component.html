@@ -1,6 +1,29 @@
+<!-- users-page.component.html -->
+
 <div class="container">
-
     <p>test</p>
-</div>
+  
+    <h2>Todo List</h2>
+  
+    <div>
+      <input type="text" [(ngModel)]="newTodo" placeholder="Enter a new todo">
+      <button type="button" (click)="addTodo()">Add Todo</button>
+    </div>
+  
+    <ul>
+      <li *ngFor="let todo of todos; let i = index">
+        <ng-container *ngIf="!todo.editing; else editMode">
+          {{ todo.text }}
+          <button type="button" (click)="editTodo(i)">Edit</button>
+        </ng-container>
+        <ng-template #editMode>
+          <input type="text" [(ngModel)]="todos[i].text" placeholder="Edit todo">
+          <button type="button" (click)="saveEdit(i)">Save</button>
+        </ng-template>
+        <button type="button" (click)="deleteTodo(i)">Delete</button>
+      </li>
+    </ul>
+    <button type="button" (click)="logout()">logout</button>
 
-<button type="button" (click)="logout()" >Logout</button>
+  </div>
+  
