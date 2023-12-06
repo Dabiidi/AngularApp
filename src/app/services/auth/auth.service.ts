@@ -7,17 +7,19 @@ import { Router } from '@angular/router';
 export class AuthService {
   users: any[] = [];
   session: any;
+
   constructor(private router: Router) {
-    let storedUsers: any = localStorage.getItem('session');
+    let storedUsers: any = localStorage.getItem('users');
     if (storedUsers) {
       this.users = JSON.parse(storedUsers);
     }
-    console.log('users', storedUsers);
+
     let session: any = localStorage.getItem('session');
     if (session) {
       this.session = JSON.parse(session);
     }
   }
+
   login(username: string, password: string) {
     let user = this.users.find(
       (u) => u.username === username && u.password === password
@@ -39,12 +41,8 @@ export class AuthService {
 
     return user;
   }
-  register(user: {
-    email: string;
 
-    username: string;
-    password: string;
-  }) {
+  register(user: { email: string; username: string; password: string }) {
     if (this.users.some((u) => u.username === user.username)) {
       return false;
     }
@@ -53,7 +51,10 @@ export class AuthService {
       id: this.users.length + 1,
       ...user,
     };
+
     this.users.push(newUser);
+
+    localStorage.setItem('users', JSON.stringify(this.users));
 
     this.session = newUser;
     localStorage.setItem('session', JSON.stringify(this.session));
@@ -62,7 +63,6 @@ export class AuthService {
   }
 
   logout() {
-    // localStorage.removeItem('session');
     this.router.navigateByUrl('/');
   }
 }
