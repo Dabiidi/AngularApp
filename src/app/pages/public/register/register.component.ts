@@ -29,7 +29,12 @@ export class RegisterComponent {
       });
 
       if (registrationSuccess) {
-        console.log('Registration successful!', this.forms.value);
+        alert('Registration successful!');
+        this.forms.patchValue({
+          username: '',
+          password: '',
+          email: '',
+        });
       } else {
         this.forms.setErrors({ registrationError: true });
         console.log('Username already exists. Please choose a different one.');

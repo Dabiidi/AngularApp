@@ -17,7 +17,7 @@ export class AuthService {
     let session: any = localStorage.getItem('session');
     if (session) {
       this.session = JSON.parse(session);
-      this.loadUserTodoList(); 
+      this.loadUserTodoList();
     }
   }
 
@@ -37,7 +37,7 @@ export class AuthService {
 
     if (user) {
       this.session = user;
-      this.loadUserTodoList(); 
+      this.loadUserTodoList();
       localStorage.setItem('session', JSON.stringify(this.session));
     }
 
@@ -52,7 +52,7 @@ export class AuthService {
     const newUser = {
       id: this.users.length + 1,
       ...user,
-      todos: [], // Initialize an empty todo list for the new user
+      todos: [],
     };
 
     this.users.push(newUser);
@@ -60,7 +60,7 @@ export class AuthService {
     localStorage.setItem('users', JSON.stringify(this.users));
 
     this.session = newUser;
-    this.saveUserTodoList(); // Save the user's todo list when they register
+    this.saveUserTodoList();
     localStorage.setItem('session', JSON.stringify(this.session));
 
     return true;
@@ -68,26 +68,33 @@ export class AuthService {
 
   private loadUserTodoList() {
     if (this.session && this.session.todos) {
-      this.session.todos = JSON.parse(localStorage.getItem('userTodoList_' + this.session.id) || '[]');
+      this.session.todos = JSON.parse(
+        localStorage.getItem('userTodoList_' + this.session.id) || '[]'
+      );
     }
   }
 
   private saveUserTodoList() {
     if (this.session) {
-      localStorage.setItem('userTodoList_' + this.session.id, JSON.stringify(this.session.todos || []));
+      localStorage.setItem(
+        'userTodoList_' + this.session.id,
+        JSON.stringify(this.session.todos || [])
+      );
     }
   }
 
+  getUserName(): string {
+    return this.session ? this.session.username : '';
+  }
   getUserId(): number | null {
     return this.session ? this.session.id : null;
   }
 
   logout() {
-    this.saveUserTodoList(); 
+    this.saveUserTodoList();
     localStorage.removeItem('session');
     this.router.navigateByUrl('/');
   }
-
 
   getTodoList(): any[] {
     return this.session ? this.session.todos : [];

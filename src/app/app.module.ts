@@ -15,7 +15,6 @@ import { RegisterComponent } from './pages/public/register/register.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent],

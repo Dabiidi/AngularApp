@@ -1,6 +1,8 @@
-
 <div class="container">
-
+  <div class="header">
+    <p>Welcome User, {{ UserName }}</p>
+    <button type="button" (click)="logout()">Logout</button>
+  </div>
 
   <h2>Todo List</h2>
 
@@ -31,6 +33,4 @@
       </ng-template>
     </li>
   </ul>
-
-  <button type="button" (click)="logout()">Logout</button>
 </div>

@@ -16,11 +16,12 @@ const routes: Routes = [
       import('./pages/admin/admin.module').then((m) => m.AdminModule),
       canActivate:[authGuard]
   },
-
+  
   {
     path: 'login',
     component: LoginComponent,
   },
+
   {
     path: 'register',
     component: RegisterComponent,

@@ -17,6 +17,10 @@ export class UsersPageComponent {
     private todoService: TodoListService
   ) {}
 
+  get UserName() {
+    return this.authService.getUserName();
+  }
+
   get todos() {
     return this.todoService.todos;
   }
