@@ -1,39 +1,44 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth/auth.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { TodoListService } from '../../../core/services/auth/todolist.service'; // Update the path
 
 @Component({
   selector: 'app-users-page',
   templateUrl: './users-page.component.html',
-  styleUrl: './users-page.component.scss',
+  styleUrls: ['./users-page.component.scss'],
 })
 export class UsersPageComponent {
-  todos: { text: string; editing: boolean }[] = [];
   newTodo: string = '';
 
-  constructor(private authService: AuthService) {}
+  createdAt: Date = new Date();
+
+  constructor(
+    private authService: AuthService,
+    private todoService: TodoListService
+  ) {}
+
+  get todos() {
+    return this.todoService.todos;
+  }
+
   logout() {
     this.authService.logout();
   }
+
   addTodo() {
-    if (this.newTodo.trim() !== '') {
-      this.todos.push({ text: this.newTodo, editing: false });
-      this.newTodo = '';
-    }
+    this.todoService.addTodo(this.newTodo);
+    this.newTodo = '';
   }
 
   editTodo(index: number) {
-    this.todos[index].editing = true;
+    this.todoService.editTodo(index);
   }
 
   saveEdit(index: number) {
-    this.todos[index].editing = false;
+    this.todoService.saveEdit(index);
   }
 
   deleteTodo(index: number) {
-    const confirmDelete = confirm('Are you sure you want to delete this todo?');
-    if (confirmDelete) {
-      this.todos.splice(index, 1);
-    }
+    this.todoService.deleteTodo(index);
   }
-  
 }
