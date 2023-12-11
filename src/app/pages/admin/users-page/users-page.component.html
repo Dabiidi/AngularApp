@@ -1,6 +1,10 @@
 <div class="container">
   <div class="header">
-    <p>Welcome User, {{ UserName }}</p>
+    <div class="header-image">
+      <p>Welcome User, {{ UserName }}</p>
+      <img src="../../../../assets/profile.png" class="mdc-image-list__image" />
+    </div>
+
     <button type="button" (click)="logout()">Logout</button>
   </div>
 
@@ -10,12 +14,26 @@
     <input type="text" [(ngModel)]="newTodo" placeholder="Enter a new todo" />
     <button type="button" (click)="addTodo()">Add Todo</button>
   </div>
+  <div class="button-container">
+    <button type="button" (click)="showOngoingTasks()" appButtonHover>
+      Ongoing Task
+    </button>
+    <button type="button" (click)="showFinishedTasks()" appButtonHover>
+      Finished Task
+    </button>
+  </div>
 
   <ul>
-    <li *ngFor="let todo of todos; let i = index">
+    <li *ngFor="let todo of filteredTodos; let i = index">
       <ng-container *ngIf="!todo.editing; else editMode">
         <div>
-          {{ todo.text }} (Created: {{ todo.createdAt | date : "medium" }})
+          <input
+            type="checkbox"
+            [(ngModel)]="todo.completed"
+            (change)="completeTodo(i, todo.completed)"
+          />
+
+          {{ todo.text }} (Created: {{ todo.createdAt | dateCreation }})
           <button type="button" (click)="editTodo(i)">Edit</button>
           <button type="button" (click)="deleteTodo(i)">Delete</button>
         </div>

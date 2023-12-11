@@ -102,7 +102,12 @@ export class AuthService {
 
   addTodo(newTodo: string) {
     if (this.session && newTodo.trim() !== '') {
-      const todo = { text: newTodo, editing: false, createdAt: new Date() };
+      const todo = {
+        text: newTodo,
+        editing: false,
+        createdAt: new Date(),
+        completed: false,
+      };
       this.session.todos.push(todo);
       this.saveUserTodoList();
     }
@@ -124,6 +129,12 @@ export class AuthService {
   deleteTodo(index: number) {
     if (this.session) {
       this.session.todos.splice(index, 1);
+      this.saveUserTodoList();
+    }
+  }
+  completeTodo(index: number, completed: boolean = true) {
+    if (this.session && this.session.todos[index]) {
+      this.session.todos[index].completed = completed;
       this.saveUserTodoList();
     }
   }

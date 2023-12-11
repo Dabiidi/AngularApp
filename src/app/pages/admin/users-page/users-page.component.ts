@@ -9,7 +9,6 @@ import { TodoListService } from '../../../core/services/auth/todolist.service'; 
 })
 export class UsersPageComponent {
   newTodo: string = '';
-
   createdAt: Date = new Date();
 
   constructor(
@@ -44,5 +43,18 @@ export class UsersPageComponent {
 
   deleteTodo(index: number) {
     this.todoService.deleteTodo(index);
+  }
+  get filteredTodos() {
+    return this.todoService.getFilteredTodos();
+  }
+  showOngoingTasks() {
+    this.todoService.showOngoingTasks();
+  }
+
+  showFinishedTasks() {
+    this.todoService.showFinishedTasks();
+  }
+  completeTodo(index: number, completed: boolean = true) {
+    this.authService.completeTodo(index, completed);
   }
 }

@@ -1,3 +1,4 @@
+import { ButtonHoverDirective } from './../../shared/directives/button-hover.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,7 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { DateCreationPipe } from '../../core/pipes/date.pipe';
 
 @NgModule({
-  declarations: [AdminComponent, UsersPageComponent, DateCreationPipe],
+  declarations: [
+    AdminComponent,
+    UsersPageComponent,
+    DateCreationPipe,
+    ButtonHoverDirective,
+  ],
   imports: [CommonModule, AdminRoutingModule, FormsModule],
 })
 export class AdminModule {}

@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/public/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/public/register/register.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
@@ -16,7 +17,8 @@ import { RegisterComponent } from './pages/public/register/register.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
